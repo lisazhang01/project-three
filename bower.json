@@ -1,0 +1,14 @@
+{
+  "name": "project-three",
+  "version": "1.0.0",
+  "main": "",
+  "private": true,
+  "dependencies": {
+    "j-toker": "^0.0.9",
+    "bootstrap": "^3.3.7",
+    "isotope": "^3.0.1"
+  },
+  "resolutions": {
+    "jquery": "^3.1.1"
+  }
+}
