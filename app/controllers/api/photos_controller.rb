@@ -18,7 +18,7 @@ class API::PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
 
     if @photo.save
-      render json: @photo, status: 201, location: [:api, photos_path]
+      render 'show', status: 201, location: api_photos_path
     else
       render json: @photo.errors.messages, status: 400
     end
@@ -29,7 +29,7 @@ class API::PhotosController < ApplicationController
     @photo.assign_attributes(photo_params)
 
     if @photo.save
-      render json: @photo, status: 201, location: [:api, photos_path]
+      render json: @photo, status: 201, location: api_photos_path
     else
       render json: @photo.errors.messages, status: 400
     end
