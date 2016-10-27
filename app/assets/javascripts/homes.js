@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+//Upload photo function
   var photo_upload = {
     // EDIT UPDATE ARTIST PROFILE
     bindUploadButton: function () {
@@ -37,5 +38,28 @@ $(document).ready(function() {
     }
   }
   photo_upload.init();
-});
+
+  //Show all photos on /homes
+  // var showAllPhotos = function(photos) {
+  //   var photoElem = "";
+
+  //   for (var i = 0; i < 20; i++) {
+
+  //     photoElem += '<div class="col-sm-4">' +
+
+  //   }
+  // }
+
+  //Testing masonry
+  var $grid = $('.grid').imagesLoaded(function(){
+    //Init isotope after all images are loaded
+   $('.grid').isotope({
+      itemSelector: '.grid-item',
+      percentPosition: true,
+      masonry: {
+        columnWidth: '.grid-sizer'
+      }
+    });
+  });
+}); //End doc ready
 

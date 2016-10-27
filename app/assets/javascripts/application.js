@@ -18,4 +18,7 @@
 //= require pubsub-js/src/pubsub
 //= require j-toker/dist/jquery.j-toker
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
+//= require imagesloaded/imagesloaded.pkgd
+//= require masonry/dist/masonry.pkgd
+//= require isotope/dist/isotope.pkgd
 //= require_tree .
