@@ -6,7 +6,6 @@ class API::PhotosController < ApplicationController
 
 #Show all photos
   def index
-    # render json: @photos
     render 'index'
   end
 
