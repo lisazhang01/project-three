@@ -2,46 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-* { box-sizing: border-box; }
-
-/* force scrollbar, prevents initial gap */
-html {
-  overflow-y: scroll;
-}
-
-body {
-  font-family: sans-serif;
-}
-
-/* ---- grid ---- */
-
 .grid {
   background: #DDD;
+
+  .grid-item {
+    float: left;
+    // background: #0D8;
+    border: 2px solid #333;
+    border-color: hsla(0, 0%, 0%, 0.7);
+    padding: 5px;
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+  }
 }
 
 /* clear fix */
-.grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- .element-item ---- */
-
-/* 5 columns, percentage width */
-.grid-item,
-.grid-sizer {
-  width: 33.33%;
-}
-
-.grid-item {
-  float: left;
-  background: #0D8;
-  border: 2px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.7);
-}
-
-.grid-item img {
-  display: block;
-  max-width: 100%;
-}
+// .grid:after {
+//   content: '';
+//   display: block;
+//   clear: both;
+// }
