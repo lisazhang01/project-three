@@ -12,6 +12,7 @@
 //
 
 
+
 //= require jquery
 //= require jquery-deparam/jquery-deparam
 //= require jquery-cookie/jquery.cookie
