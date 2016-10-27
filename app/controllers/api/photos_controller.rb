@@ -1,11 +1,12 @@
 class API::PhotosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :set_photos, only: [:index]
   before_action :photo_params, only: [:create, :update]
 
 #Show all photos
   def index
-    render 'index'
+    render json: @photos.where(user_id: current_user.id)
   end
 
 #Show one photo
@@ -20,7 +21,7 @@ class API::PhotosController < ApplicationController
     if @photo.save
       render 'show', status: 201, location: api_photos_path
     else
-      render json: @photo.errors.messages, status: 400
+      render json: @photo.errors.messages, status: 404
     end
   end
 
@@ -31,9 +32,8 @@ class API::PhotosController < ApplicationController
     if @photo.save
       render json: @photo, status: 201, location: api_photos_path
     else
-      render json: @photo.errors.messages, status: 400
+      render json: @photo.errors.messages, status: 404
     end
-
   end
 
 #Delete a photo and corresponding comments, likes etc
@@ -42,18 +42,17 @@ class API::PhotosController < ApplicationController
   end
 
 private
-
   def set_photos
     @photos = Photo.order(id: :desc)
     if @photos.nil?
-      render json: "No Photos Found"
+      render json: "No Photos Found", status: 404
     end
   end
 
   def set_photo
     @photo = Photo.find_by(id: params[:id])
     if @photo.nil?
-      render json: "Photo with id #{params.id} not found"
+      render json: "Photo with id #{params[:id]} not found", status: 404
     end
   end
 
