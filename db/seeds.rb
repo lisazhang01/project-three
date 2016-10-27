@@ -23,7 +23,7 @@ end
 #Photos
   20.times do
     p_params = {
-      link_url: Faker::Avatar.image,
+      avatar: File.new("#{Rails.root}/public/photos/reflect_architecture_logo.png"),
       description: Faker::Lorem.sentences
     }
 

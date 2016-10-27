@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   end
 
   resources :homes
+
+  resources :photos, only: [:index, :show, :create, :update, :destroy]
 end
 

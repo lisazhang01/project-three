@@ -5,12 +5,12 @@ class API::PhotosController < ApplicationController
 
 #Show all photos
   def index
-    render json: @photos
+    render 'index'
   end
 
 #Show one photo
   def show
-    render json: @photo
+    render 'show'
   end
 
 #Upload a new photo
@@ -44,7 +44,7 @@ class API::PhotosController < ApplicationController
 private
 
   def set_photos
-    @photos = Photo.all
+    @photos = Photo.order(id: :desc)
     if @photos.nil?
       render json: "No Photos Found"
     end
