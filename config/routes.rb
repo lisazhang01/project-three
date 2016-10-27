@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :photos, only: [:index, :show, :create, :update, :destroy] do
-      resources :comments, only: [:index, :create]
+      resources :comments, only: [:index, :create, :update, :delete]
     end
   end
 

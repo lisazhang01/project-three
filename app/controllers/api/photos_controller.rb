@@ -1,11 +1,12 @@
 class API::PhotosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :set_photos, only: [:index]
   before_action :photo_params, only: [:create, :update]
 
 #Show all photos
   def index
-    render 'index'
+    render json: @photos.where(user_id: current_user.id)
   end
 
 #Show one photo
@@ -33,7 +34,6 @@ class API::PhotosController < ApplicationController
     else
       render json: @photo.errors.messages, status: 404
     end
-
   end
 
 #Delete a photo and corresponding comments, likes etc

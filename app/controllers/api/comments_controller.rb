@@ -1,17 +1,29 @@
 class API::CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_photo, only: [:index]
-  before_action :set_comments, only: [:index]
+  before_action :set_photo
+  before_action :set_comments
+  before_action :set_comment, only: [:update, :destroy]
 
   def index
     render json: @comments.order(created_at: :desc).limit(5).offset(0)
   end
 
   def create
-    @comment = current_user.photos.comments.new(comment_params)
+    @comment = @comments.new(comment_params)
+    @comment.assign_attributes(user_id: current_user.id)
 
     if @comment.save
-      render json: { message: "201 Created" }, status: :created
+      head 201
+    else
+      render json: { message: "400 Bad Request" }, status: :bad_request
+    end
+  end
+
+  def update
+    @comment.assign_attributes(comment_params)
+
+    if @comment.save
+      head 201
     else
       render json: { message: "400 Bad Request" }, status: :bad_request
     end
@@ -24,7 +36,14 @@ private
   def set_photo
     @photo = Photo.find_by(id: params[:photo_id])
     if @photo.nil?
-      render json: "Photo with id #{params[:photo_id]} not found", status: 404
+      render json: {message: "Photo with id #{params[:photo_id]} not found"}, status: 404
+    end
+  end
+
+  def set_comment
+    @comment = @photo.comments.find_by(id: params[:id])
+    if @comment.nil?
+      render json: {message: "Comment with id #{params[:id]} not found"}, status: 404
     end
   end
 
