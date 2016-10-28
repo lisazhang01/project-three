@@ -1,12 +1,13 @@
 class API::PhotosController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, exclude: [:index, :show]
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :set_photos, only: [:index]
   before_action :photo_params, only: [:create, :update]
 
 #Show all photos
   def index
-    render json: @photos.where(user_id: current_user.id)
+    # render json: @photos
+    render 'index'
   end
 
 #Show one photo
@@ -43,7 +44,7 @@ class API::PhotosController < ApplicationController
 
 private
   def set_photos
-    @photos = Photo.order(id: :desc)
+    @photos = Photo.order(id: :desc).limit(50)
     if @photos.nil?
       render json: "No Photos Found", status: 404
     end
