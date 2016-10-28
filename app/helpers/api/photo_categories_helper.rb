@@ -1,0 +1,2 @@
+module API::PhotoCategoriesHelper
+end

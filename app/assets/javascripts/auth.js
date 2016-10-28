@@ -21,14 +21,13 @@ $(document).ready(function(){
       $.auth.signOut();
   });
 
-  $('#signup-form').on('submit', function(e){
+  $('#login-form').on('submit', function(e){
       e.preventDefault();
     $.auth.emailSignIn({
-      email: $('#signup-form input[name="email"]').val(),
-      password: $('#signup-form input[name="password"]').val(),
-      password_confirmation: $('#signup-form input[name="password_confirmation"]').val()
+      email: $('#login-form input[name="email"]').val(),
+      password: $('#login-form input[name="password"]').val(),
     }).then(function(user){
-      alert('Welcome ' + user.name + '!');
+      alert('Thank you for logging in ' + user.name + '!');
     }).fail(function(resp){
       alert('Authentication failure: ' + resp.errors.join(' '));
     });
