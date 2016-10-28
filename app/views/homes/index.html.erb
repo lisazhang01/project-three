@@ -1,39 +1,15 @@
 <%= render 'show' %>
+<%= render 'uploadform' %>
+<%= render 'signup' %>
+
 <div class="container">
 
-  <form id="signup-form">
-    <input type="email" name="email">
-    <input type="password" name="password">
-    <input type="password" name="password_confirmation">
-    <button type="submit">Sign Up</button>
-  </form>
-
-  <form id="login-form">
-    <input type="email" name="email">
-    <input type="password" name="password">
-    <button type="submit">Login</button>
-  </form>
-
-  <button id="logout-button">Logout</button>
-
-  <form id="signup-form">
-    <input type="email" name="email">
-    <input type="password" name="password">
-    <input type="password" name="password_confirmation">
-    <button type="submit"></button>
-  </form>
-
-  <h1>Photos</h1>
-  <form id="photo-upload-form" action="" method="">
-    <p>Upload your photo:</p>
-    <input type="file" name="user-photo" /><br />
-    <input type="text" name="photo-description"/><br />
-    <input type="submit" id="upload-btn" value="Upload" />
-  </form>
-
-  <h1>Photo reel</h1>
-
-  <div class="grid">
-
+  <h1>User Profile</h1>
+  <div class="user-profile">
+    <img class="img-responsive" src="/photos/clouds-wallpaper-2.jpg">
   </div>
+
+
+  <div class="grid"></div>
+
 </div>

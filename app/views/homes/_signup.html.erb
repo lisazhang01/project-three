@@ -1,4 +1,4 @@
-<div class="modal fade" id="show-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,11 +7,14 @@
       </div>
 
       <div class="modal-body"></div>
-
+        <form id="signup-form">
+          <input type="email" name="email">
+          <input type="password" name="password">
+          <input type="password" name="password_confirmation">
+          <button type="submit"></button>
+        </form>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default btn-sm delete-photo">
-          <span class="glyphicon glyphicon-trash"></span>Delete Post
-        </button>
+
       </div>
     </div>
   </div>
