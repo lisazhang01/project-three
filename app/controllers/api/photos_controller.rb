@@ -1,5 +1,5 @@
 class API::PhotosController < ApplicationController
-  before_action :authenticate_user!, exclude: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_photo, only: [:show, :update, :destroy]
   before_action :set_photos, only: [:index]
   before_action :photo_params, only: [:create, :update]

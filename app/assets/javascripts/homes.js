@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var token = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup( {
-      beforehand: function (xhr) {
+  $.ajaxSetup({
+    beforehand: function (xhr) {
       xhr.setRequestHeader( 'X-CSRF-TOken', token);
     }
   });
@@ -38,10 +38,8 @@ $(document).ready(function() {
   };
   displayPhotos();
 
-
   // Upload photo function
   var photo_upload = {
-
     bindUploadButton: function () {
       var that = this;
       $('#upload-btn').on('click', function (e) {
@@ -67,17 +65,16 @@ $(document).ready(function() {
           processData: false,  // tell jQuery not to process the data
           contentType: false,  // tell jQuery not to set contentType
           success: function (resp) {
-            window.location.href = '/homes'
-            console.log(resp)
+            window.location.href = '/homes';
+            console.log(resp);
           }
-        })
+        });
       });
-
     },
     init: function () {
       this.bindUploadButton();
     }
-  }
+  };
   photo_upload.init();
 
   //Get one photo
@@ -139,7 +136,7 @@ $(document).ready(function() {
     $('#upload').on('click', function(e) {
       e.preventDefault();
       $('#upload-modal').modal('show');
-    })
+    });
   };
   openUploadForm();
 
