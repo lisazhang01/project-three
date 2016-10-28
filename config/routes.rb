@@ -3,16 +3,18 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :photos, only: [:index, :show, :create, :update, :destroy] do
+      # comments for photo
       resources :comments, only: [:index, :create, :update, :delete]
+      # like or dislike photo
+      resources :photolikes, only: [:create, :destroy]
     end
+    # index/add/delete current_user's friends
     resources :friendships, only: [:index, :create, :destroy]
+    # search/show public accessable users
     resources :users, only: [:index, :show]
-    resources :photolikes, only: [:index, :show, :create, :destroy]
+    # list of all available categories
     resources :categories, only: [:index]
-    resources :photo_categories, only: [:index, :create]
   end
 
-  root "home#index"
-  resources :photos, only: [:index, :show, :create, :update, :destroy]
+  root "homes#index"
 end
-

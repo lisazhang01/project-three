@@ -1,2 +1,4 @@
-json.merge! @photo.attributes
-json.avatar @photo.avatar.url
+json.merge!     @photo.attributes
+json.avatar     @photo.avatar.url
+json.comments   @photo.comments
+json.categories @photo.categories.pluck(:name)

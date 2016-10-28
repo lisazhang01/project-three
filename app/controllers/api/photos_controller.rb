@@ -19,6 +19,15 @@ class API::PhotosController < ApplicationController
     @photo = Photo.new(photo_params)
 
     if @photo.save
+      if !params[:photo_categories].empty?
+        params[:photo_categories].each do |category_id|
+          category = Category.find_by(id: category_id)
+          if !category.nil?
+            @photo.photo_categories.create(category_id: category_id)
+          end
+        end
+      end
+
       render 'show', status: 201, location: api_photos_path
     else
       render json: @photo.errors.messages, status: 404
