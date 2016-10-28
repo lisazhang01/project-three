@@ -6,7 +6,6 @@ class API::PhotosController < ApplicationController
 
 #Show all photos
   def index
-    # render json: @photos
     render 'index'
   end
 
@@ -31,7 +30,7 @@ class API::PhotosController < ApplicationController
     @photo.assign_attributes(photo_params)
 
     if @photo.save
-      render json: @photo, status: 201, location: api_photos_path
+      render 'show', status: 201, location: api_photos_path
     else
       render json: @photo.errors.messages, status: 404
     end

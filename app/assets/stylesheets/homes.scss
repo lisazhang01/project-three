@@ -3,13 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .grid {
-  background: #DDD;
+  background: white;
 
   .grid-item {
     float: left;
-    // background: #0D8;
-    border: 2px solid #333;
-    border-color: hsla(0, 0%, 0%, 0.7);
+    // border: 2px solid #333;
+    // border-color: hsla(0, 0%, 0%, 0.7);
     padding: 5px;
 
     img {
@@ -19,9 +18,13 @@
   }
 }
 
-/* clear fix */
-// .grid:after {
-//   content: '';
-//   display: block;
-//   clear: both;
-// }
+h1 {
+  text-align: center;
+}
+.user-profile {
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+
+
