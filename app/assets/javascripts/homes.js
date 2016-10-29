@@ -20,7 +20,7 @@ $(document).ready(function() {
       url:    '/api/photos',
     }).done(function(photos){
       var items    = "";
-      var template = '<div class="grid-item col-xs-6 col-sm-4 col-md-3" data-id="!id"><a href=""><img src="!image"></a></div>';
+      var template = '<div class="grid-item col-xs-6 col-sm-4 col-md-4" data-id="!id"><a href=""><img src="!image"></a></div>';
       var $grid    = $('.grid');
       $grid.html("");
 
@@ -43,7 +43,6 @@ $(document).ready(function() {
       var that = this;
       $('#upload-btn').on('click', function (e) {
         e.preventDefault();
-        $('#upload-modal').modal('hide');
 
         var data = {
           avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
@@ -65,6 +64,7 @@ $(document).ready(function() {
           contentType: false,  // tell jQuery not to set contentType
           success: function (resp) {
             window.location.href = '/homes';
+            $('#upload-modal').modal('hide');
             console.log(resp);
           }
         });
@@ -76,43 +76,55 @@ $(document).ready(function() {
   };
 
   //Get one photo
-var getPhoto = function (id, cb) {
-  $.ajax({
-    url: '/api/photos/' + id,
-    method: 'GET',
-  }).done(function(photo){
-    cb(photo);
-  });
-};
+  var getPhotoAndComments = function (id, cb1, cb2) {
+    $.ajax({
+      url: '/api/photos/' + id,
+      method: 'GET'
+    }).done(function(photo){
+      cb1(photo);
+      console.log(photo)
 
-//Set photo info into template
-var setPhotoShowModal = function(photo) {
-  var showModal = $('#show-modal');
+      // $.ajax({
+      //   url: '/api/photos/' + id + '/comments',
+      //   method: 'GET'
+      // }).done(function(comment){
+      //   cb(comments);
+      //   console.log(comment);
+      // });
+    });
+  };
 
-  //Template for header (includes user display pic and user name -- links to user page)
-  var header = '<div><a href="">User DP<img class="img-rounded" width="100px" src=""><div>User Name</div></a></div>';
-  //Replace with links to user api
-  // header = header.replace('!dp', "http:" + user.image).replace('!username', user.name);
+  //Set photo info into template
+  var setPhotoShowModal = function(photo) {
+    var showModal = $('#show-modal');
 
-  //Create html template
-  var template = '<div><img class="img-responsive" src="!image"></div><div><a href="#"><span class="glyphicon glyphicon-heart pull-right"></span></a></div><div id="description">!description<a href="#"><span class="glyphicon glyphicon-pencil pull-right"></span></a></div><div id="comments">Comments</div>';
-  //replace template fields with photo attr
-  template = template.replace('!image', "http:" + photo.avatar).replace('!description', photo.description).replace('!id', photo.id);
+    //Template for header (includes user display pic and user name -- links to user page)
+    var header = '<div><a href="">User DP<img class="img-rounded" width="100px" src=""><div>User Name</div></a></div>';
+    //Replace with links to user api
+    // header = header.replace('!dp', "http:" + user.image).replace('!username', user.name);
 
-  var footer = '<button type="button" class="btn btn-default btn-sm delete-photo" data-id="!id"><span class="glyphicon glyphicon-trash"></span>Delete Post</button>';
+    var commentsArray = photo.comments.reverse();
 
-  footer = footer.replace('!id', photo.id);
+    //Create html template
+    var template = '<div class="row"><img class="img-responsive" src="!image"></div><div class="row"><div class="col-sm-12 col-xs-12"><a href="#"><span class="glyphicon glyphicon-heart pull-right"></span></a></div></div><div class="row" id="description"><h3 class="col-sm-12 col-xs-12">!description</h3></div><div class="form-group"><label for="comments-box">Comments</label><div id="comments"><ul><li>!commentsArray[0]</li><li>!commentsArray[1]</li><li>!commentsArray[2]</li></ul></div><textarea class="form-control" id="photo-comments" rows="1"></textarea> <button type="button" data-id="!id" class="btn btn-default btn-xs pull-right submit">Submit</button></div>';
 
-  //append new elem
-  showModal.find('.modal-title').html('');
-  showModal.find('.modal-body').html('');
-  showModal.find('.modal-footer').html('');
-  showModal.find('.modal-title').append(header);
-  showModal.find('.modal-body').append(template);
-  showModal.find('.modal-footer').append(footer);
-  //Show modal
-  showModal.modal('show');
-};
+    //replace template fields with photo attr
+    template = template.replace('!image', "http:" + photo.avatar).replace('!description', photo.description).replace('!id', photo.id).replace('!commentsArray[0]', commentsArray[0]).replace('!commentsArray[1]', commentsArray[1]).replace('!commentsArray[2]', commentsArray[2]);
+
+    var footer = '<button type="button" class="btn btn-default btn-sm delete-photo" data-id="!id"><span class="glyphicon glyphicon-trash"></span></button>';
+
+    footer = footer.replace('!id', photo.id);
+
+    //append new elem
+    showModal.find('.modal-title').html('');
+    showModal.find('.modal-body').html('');
+    showModal.find('.modal-footer').html('');
+    showModal.find('.modal-title').append(header);
+    showModal.find('.modal-body').append(template);
+    showModal.find('.modal-footer').append(footer);
+    //Show modal
+    showModal.modal('show');
+  };
 
   //Show one photo in modal
   var clickOnePhoto = function(e){
@@ -124,7 +136,7 @@ var setPhotoShowModal = function(photo) {
       // if ()
 
       var id = $(this).parents('.grid-item').data('id');
-      getPhoto(id, setPhotoShowModal);
+      getPhotoAndComments(id, setPhotoShowModal);
     });
   };
 
@@ -133,6 +145,8 @@ var setPhotoShowModal = function(photo) {
     $('#upload').on('click', function(e) {
       e.preventDefault();
       $('#upload-modal').modal('show');
+      $('.nav-collapse').collapse('hide');
+      console.log('collapse?');
     });
   };
 
@@ -157,6 +171,31 @@ var setPhotoShowModal = function(photo) {
     });
   };
 
+  //Edit description of one photo from modal
+  var addCommentToPhoto = function () {
+    $(document).on('click', "button.submit", function(e) {
+      e.preventDefault();
+
+      var id = $(this).data('id');
+      var commentData = {
+        text: $('#photo-comments').val()
+      }
+      console.log(commentData);
+
+      $.ajax ({
+        url: '/api/photos/' + id + '/comments',
+        method: 'POST',
+        data: commentData,
+        dataType: 'json',
+      }).done(function(resp) {
+        console.log("comment added");
+
+      }).fail(function(resp){
+        console.log("comment not added");
+      });
+    });
+  };
+
   var init = function() {
     //Photo controller functions
     displayPhotos();
@@ -164,6 +203,8 @@ var setPhotoShowModal = function(photo) {
     clickOnePhoto();
     openUploadForm();
     deletePhoto();
+    //comment controller functions
+    addCommentToPhoto();
   };
 
   init();

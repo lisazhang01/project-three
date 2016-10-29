@@ -48,7 +48,7 @@ class API::PhotosController < ApplicationController
 #Delete a photo and corresponding comments, likes etc
   def destroy
     if @photo.destroy
-      render 'index'
+      render 'index', status: 201, location: api_photos_path
     else
       render json: @photo.errors.messages
     end
