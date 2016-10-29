@@ -13,7 +13,7 @@ $(document).ready(function() {
     percentPosition: true,
   });
 
-//Calling photos and dynamically generate grid items to append to grid
+  //Calling photos and dynamically generate grid items to append to grid
   var displayPhotos = function () {
     $.ajax({
       method: 'GET',
@@ -36,7 +36,6 @@ $(document).ready(function() {
       });
     });
   };
-  displayPhotos();
 
   // Upload photo function
   var photo_upload = {
@@ -75,47 +74,47 @@ $(document).ready(function() {
       this.bindUploadButton();
     }
   };
-  photo_upload.init();
 
   //Get one photo
-  var getPhoto = function (id, cb) {
-    $.ajax({
-      url: '/api/photos/' + id,
-      method: 'GET',
-    }).done(function(photo){
-      cb(photo);
-    });
-  };
+var getPhoto = function (id, cb) {
+  $.ajax({
+    url: '/api/photos/' + id,
+    method: 'GET',
+  }).done(function(photo){
+    cb(photo);
+  });
+};
 
-  //Set photo info into template
-  var setPhotoShowModal = function(photo) {
-    var showModal = $('#show-modal');
+//Set photo info into template
+var setPhotoShowModal = function(photo) {
+  var showModal = $('#show-modal');
 
-    //Template for header (includes user display pic and user name -- links to user page)
-    var header = '<div><a href="">User DP<img class="img-rounded" width="100px" src=""><div>User Name</div></a></div>';
-    //Replace with links to user api
-    // header = header.replace('!dp', "http:" + user.image).replace('!username', user.name);
+  //Template for header (includes user display pic and user name -- links to user page)
+  var header = '<div><a href="">User DP<img class="img-rounded" width="100px" src=""><div>User Name</div></a></div>';
+  //Replace with links to user api
+  // header = header.replace('!dp', "http:" + user.image).replace('!username', user.name);
 
-    //Create html template
-    var template = '<div><img class="img-responsive" src="!image"></div><div><a href="#"><span class="glyphicon glyphicon-heart pull-right"></span></a></div><div id="description">!description<a href="#"><span class="glyphicon glyphicon-pencil pull-right"></span></a></div><div id="comments">Comments</div>';
-    //replace template fields with photo attr
-    template = template.replace('!image', "http:" + photo.avatar).replace('!description', photo.description).replace('!id', photo.id);
+  //Create html template
+  var template = '<div><img class="img-responsive" src="!image"></div><div><a href="#"><span class="glyphicon glyphicon-heart pull-right"></span></a></div><div id="description">!description<a href="#"><span class="glyphicon glyphicon-pencil pull-right"></span></a></div><div id="comments">Comments</div>';
+  //replace template fields with photo attr
+  template = template.replace('!image', "http:" + photo.avatar).replace('!description', photo.description).replace('!id', photo.id);
 
-    // var footer = '<div data-id="!id"></div>';
+  var footer = '<button type="button" class="btn btn-default btn-sm delete-photo" data-id="!id"><span class="glyphicon glyphicon-trash"></span>Delete Post</button>';
 
-    // footer = footer.replace('!id', photo.id);
+  footer = footer.replace('!id', photo.id);
 
-    //append new elem
-    showModal.find('.modal-title').html('');
-    showModal.find('.modal-body').html('');
-    showModal.find('.modal-title').append(header);
-    showModal.find('.modal-body').append(template);
-    // showModal.find('.modal-footer').append(footer);
-    //Show modal
-    showModal.modal('show');
-  };
+  //append new elem
+  showModal.find('.modal-title').html('');
+  showModal.find('.modal-body').html('');
+  showModal.find('.modal-footer').html('');
+  showModal.find('.modal-title').append(header);
+  showModal.find('.modal-body').append(template);
+  showModal.find('.modal-footer').append(footer);
+  //Show modal
+  showModal.modal('show');
+};
 
-//Show one photo in modal
+  //Show one photo in modal
   var clickOnePhoto = function(e){
     //On click of photo
     $('.grid').on('click', '.grid-item a img', function (e) {
@@ -128,43 +127,44 @@ $(document).ready(function() {
       getPhoto(id, setPhotoShowModal);
     });
   };
-  //call function
-  clickOnePhoto();
 
-//Show upload form on click
+  //Show upload form on click
   var openUploadForm = function(e) {
     $('#upload').on('click', function(e) {
       e.preventDefault();
       $('#upload-modal').modal('show');
     });
   };
-  openUploadForm();
 
-//Delete a photo on click delete button
-  // var deletePhoto = function () {
-  //   $('.delete-photo').on('click', function(e) {
-  //     e.preventDefault();
-  //     $('#show-modal').modal('hide');
+  //Delete a photo on click delete button
+  var deletePhoto = function () {
+    $(document).on("click", "button.delete-photo", function(e) {
+      e.preventDefault();
 
-  //     var id = @id;
-  //     console.log(@id);
-  //     var thisPhoto = {
-  //       id: @id
-  //     };
+      var id = $(this).data('id');
+      console.log(id);
 
-  //     $.ajax ({
-  //       url     : '/api/photos/:id',
-  //       method  : 'DELETE',
-  //       data    : thisPhoto,
-  //     }).done(function(resp){
-  //       window.location.href = '/bowties'
-  //       console.log("Bowtie is deleted");
-  //     }).fail(function(resp){
-  //       console.log("Delete unsuccessful");
-  //     });
-  //   });
-  // };
-  // deletePhoto();
+      $.ajax ({
+        url     : '/api/photos/' + id,
+        method  : 'DELETE',
+      }).done(function(resp){
+        window.location.href = '/'
+        console.log("Photo is deleted");
+        $('#show-modal').modal('hide');
+      }).fail(function(resp){
+        console.log("Delete unsuccessful");
+      });
+    });
+  };
 
+  var init = function() {
+    //Photo controller functions
+    displayPhotos();
+    photo_upload.init();
+    clickOnePhoto();
+    openUploadForm();
+    deletePhoto();
+  };
 
+  init();
 }); //End doc ready
