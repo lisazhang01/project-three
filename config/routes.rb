@@ -16,5 +16,9 @@ Rails.application.routes.draw do
     resources :categories, only: [:index]
   end
 
-  root "homes#index"
+  root "starts#index"
+
+  resources :homes, only: [:index]
+  resources :logins, only: [:index]
+  resources :signups, only: [:index]
 end

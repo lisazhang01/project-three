@@ -1,0 +1,24 @@
+// Place all the styles related to the starts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+#start-banner {
+  height: 700px;
+  color: black;
+  background-image: url(https://drscdn.500px.org/photo/146969363/m%3D2048/824fea66460020390506bf4bfb713d79);
+  background-size: cover;
+}
+
+#start-words {
+  height: 90%;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+#start-info-header {
+  text-align: center;
+}
