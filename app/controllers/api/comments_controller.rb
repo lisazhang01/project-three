@@ -1,5 +1,5 @@
 class API::CommentsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :set_photo
   before_action :set_comments
   before_action :set_comment, only: [:update, :destroy]
@@ -11,6 +11,7 @@ class API::CommentsController < ApplicationController
   def create
     @comment = @comments.new(comment_params)
     @comment.assign_attributes(user_id: current_user.id)
+    @comment.assign_attributes(photo_id: @photo.id)
 
     if @comment.save
       head 201
@@ -54,6 +55,6 @@ private
   end
 
   def comment_params
-    params.require(:comment).permit(:text)
+    params.permit(:text)
   end
 end
