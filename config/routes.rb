@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   resources :homes, only: [:index]
   resources :logins, only: [:index]
   resources :signups, only: [:index]
+
 end
