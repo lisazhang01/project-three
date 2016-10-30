@@ -1,5 +1,28 @@
-  var getUserID = function() {
+  var getMyself = function () {
 
+    var myTemplate = '<div data-id="!id"> <div id="user-image"> <img src="<!--profilepic-->"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
+
+    $.ajax({
+      method: "GET",
+      url:    "api/myself/",
+    }).done(function(data){
+
+      $("#myinfo-container").html("");
+      var myData = data;
+
+      var myTPL = myTemplate;
+      myTPL = myTPL.replace('!id', myData.id);
+      //myTPL = myTPL.replace("!profile", elem.image);
+      myTPL = myTPL.replace("<!--name-->", myData.name);
+      myTPL = myTPL.replace("<!--nick-->", myData.nickname);
+      myTPL = myTPL.replace("<!--bio-->", myData.bio);
+
+      $("#myinfo-container").append(myTPL);
+    });
+  };
+
+
+  var getUserID = function() {
     console.log(a)
   };
 

@@ -70,7 +70,7 @@ private
   end
 
   def photo_params
-    params.permit(:avatar, :description)
+    params.permit(:avatar, :description, :user_id)
   end
 
 end

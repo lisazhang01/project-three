@@ -2,6 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// GENERAL
+
+.info-container {
+  margin-top: -50px;
+}
+
+// USER PAGE PROFILE INFORMATION
+
+#user-background {
+  height: 300px;
+  background-color: black;
+}
+
+#user-background img {
+  height: 100%;
+  width: 100%;
+}
+
+#user-image {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+}
+
+#user-image img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background-color: white;
+}
+
+#user-info {
+  text-align: center;
+}
+
+// GRID CONTAINER
+
 .grid {
   background: white;
 
@@ -17,14 +54,3 @@
     }
   }
 }
-
-h1 {
-  text-align: center;
-}
-.user-profile {
-  height: 400px;
-  margin-bottom: 20px;
-}
-
-
-

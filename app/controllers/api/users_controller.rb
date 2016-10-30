@@ -22,6 +22,14 @@ class API::UsersController < ApplicationController
     end
   end
 
+  def show_my_photos
+    render json: current_user.photos
+  end
+
+  def show_me
+    render json: current_user
+  end
+
 private
   def set_users
     @users = User.all

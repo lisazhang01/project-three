@@ -2,6 +2,11 @@ Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
 
   namespace :api do
+    #gets current_user's photo
+    get '/myphotos' => "users#show_my_photos"
+
+    get '/myself' => "users#show_me"
+
     resources :photos, only: [:index, :show, :create, :update, :destroy] do
       # comments for photo
       resources :comments, only: [:index, :create, :update, :delete]
