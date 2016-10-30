@@ -1,6 +1,6 @@
   var getMyself = function () {
 
-    var myTemplate = '<div data-id="!id"> <div id="user-image"> <img src="<!--profilepic-->"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
+    var myTemplate = '<div data-id="!id"> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
 
     $.ajax({
       method: "GET",
@@ -9,23 +9,17 @@
 
       $("#myinfo-container").html("");
       var myData = data;
-
       var myTPL = myTemplate;
       myTPL = myTPL.replace('!id', myData.id);
-      //myTPL = myTPL.replace("!profile", elem.image);
+      myTPL = myTPL.replace('!profilepic', myData.image);
       myTPL = myTPL.replace("<!--name-->", myData.name);
       myTPL = myTPL.replace("<!--nick-->", myData.nickname);
       myTPL = myTPL.replace("<!--bio-->", myData.bio);
 
       $("#myinfo-container").append(myTPL);
     });
+
   };
-
-
-  var getUserID = function() {
-    console.log(a)
-  };
-
 
   var getProfile = function(identity) {
 
@@ -36,7 +30,7 @@
       url: "api/users/" + id,
     }).done(function(elem){
       console.log(elem);
-    })
+    });
 
   };
 
@@ -65,17 +59,20 @@
 
   };
 
-  var updateProfile = function() {
+  var updateProfile = function(identity) {
+
+    var id = identity;
 
     var profileData = {
       name:     $("#profile-name").val(),
       nickname: $("#profile-nickname").val(),
-      bio:      $("#profile-bio").val()
+      bio:      $("#profile-bio").val(),
+      image:    $("#profile-pic").val()
     };
 
     $.ajax({
       method:   "PUT",
-      url:      "/api/users/17",
+      url:      "/api/users/" + id,
       data:     profileData,
       dataType: "json"
     }).done(function(data) {
@@ -86,8 +83,20 @@
 
 // IMPORT TO CENTRAL FILE
 
+  if (top.location.pathname === '/homes')
+  {
+  getMyself();
+  }
+
   $(document).on("click", "a#searchall", function(e) {
-    getProfiles();
+    getProfiles(id);
+  });
+
+  $(document).on("click", "button#save-profile", function(e) {
+    var id = $("#user-image").parent().attr("data-id");
+    updateProfile(id);
+    getMyself();
+    $('#profile-modal').modal('hide');
   });
 
   $(document).on("click", "find-me", function(e) {

@@ -48,6 +48,6 @@ private
   end
 
   def user_params
-    params.permit(:name, :nickname, :bio)
+    params.permit(:name, :nickname, :bio, :image)
   end
 end
