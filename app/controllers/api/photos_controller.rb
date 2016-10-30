@@ -4,6 +4,7 @@ class API::PhotosController < ApplicationController
   before_action :set_photos, only: [:index]
   before_action :photo_params, only: [:create, :update]
 
+
 #Show all photos
   def index
     render 'index'
