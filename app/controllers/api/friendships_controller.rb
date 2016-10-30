@@ -27,6 +27,13 @@ class API::FriendshipsController < ApplicationController
   end
 
 private
+  def set_friendships
+    @friendships = current_user.friends
+    if @friendships.nil?
+      render json: "You have no friends =(", status: 404
+    end
+  end
+
   def set_friendship
     @friendship = Friendship.find_by(id: params[:id])
 

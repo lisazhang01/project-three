@@ -2,7 +2,7 @@ class API::UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_users, only: [:index]
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :update]
 
   def index
     render json: @users
@@ -10,6 +10,16 @@ class API::UsersController < ApplicationController
 
   def show
     render json: @user
+  end
+
+  def update
+    @user.assign_attributes(user_params)
+
+    if @user.save
+      head 201
+    else
+      render json: { message: "User doesn't exist" }, status: 404
+    end
   end
 
 private
@@ -27,5 +37,9 @@ private
     if @user.nil?
       render json: "User not found", status: 404
     end
+  end
+
+  def user_params
+    params.permit(:name, :nickname, :bio)
   end
 end

@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     # index/add/delete current_user's friends
     resources :friendships, only: [:index, :create, :destroy]
     # search/show public accessable users
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show, :update]
     # list of all available categories
     resources :categories, only: [:index]
   end

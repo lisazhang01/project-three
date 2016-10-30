@@ -1,0 +1,1 @@
+json.friendships @friendships
