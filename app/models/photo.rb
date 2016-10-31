@@ -4,7 +4,7 @@ class Photo < ActiveRecord::Base
   has_many   :photolikes
   has_many   :photo_categories
   has_many   :categories, through: :photo_categories
-
+  # acts_as_commontable
 #Allow photo model to allow an attached image file (avatar)
   has_attached_file :avatar, styles: { medium: "500x500>"}, default_url: "/images/:style/missing.png"
 #Specities types of images that are allowed (jpg, png, bmg, gif etc)

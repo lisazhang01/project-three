@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       resources :comments, only: [:index, :create, :update, :delete]
       # like or dislike photo
       resources :photolikes, only: [:create, :destroy]
+      # search/show public accessable users
+      resources :users, only: [:index, :show]
     end
     # index/add/delete current_user's friends
     resources :friendships, only: [:index, :create, :destroy]
