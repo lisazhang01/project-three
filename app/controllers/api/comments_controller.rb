@@ -2,6 +2,7 @@ class API::CommentsController < ApplicationController
   # before_action :authenticate_user!
   before_action :set_photo
   before_action :set_comments
+  before_action :comment_params, only: [:create]
   before_action :set_comment, only: [:update, :destroy]
 
   def index
@@ -37,14 +38,14 @@ private
   def set_photo
     @photo = Photo.find_by(id: params[:photo_id])
     if @photo.nil?
-      render json: {message: "Photo with id #{params[:photo_id]} not found"}, status: 404
+      render json: { message: "Photo with id #{params[:photo_id]} not found" }, status: 404
     end
   end
 
   def set_comment
     @comment = @photo.comments.find_by(id: params[:id])
     if @comment.nil?
-      render json: {message: "Comment with id #{params[:id]} not found"}, status: 404
+      render json: { message: "Comment with id #{params[:id]} not found" }, status: 404
     end
   end
 
@@ -52,6 +53,10 @@ private
 
   def set_comments
     @comments = @photo.comments
+
+    if @comments.nil?
+      render json: { message: "Comment not found" }, status: 404
+    end
   end
 
   def comment_params

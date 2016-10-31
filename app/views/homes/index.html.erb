@@ -1,12 +1,29 @@
-<%= render 'nav' %>s
+<%= render 'nav' %> <!-- nav bar -->
 <%= render 'show' %> <!-- show modal -->
 <%= render 'uploadform' %> <!-- new modal-->
+<%= render 'profile' %> <!-- edit profile modal-->
+<%= render 'search' %> <!-- search for friends modal-->
+<%= render 'friends' %> <!-- search for friends modal-->
 
-<div class="container">
-  <h1>User Profile</h1>
-  <div class="user-profile">
-    <img class="img-responsive" src="/photos/clouds-wallpaper-2.jpg">
+<div class="container" id="myinfo-container">
+
+</div>
+
+<div class="container-fluid filter-bar">
+  <div class="btn-group filter" role="group" aria-label="...">
+    <button type="button" class="btn btn-default">My Uploads</button>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default dropdown-toggle category-list" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        By Category
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu categories">
+      </ul>
+    </div>
   </div>
+</div>
 
+
+<div class="container-fluid">
   <div class="grid"></div>
 </div>
