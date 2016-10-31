@@ -4,7 +4,13 @@
 
 // GENERAL
 
-.info-container {
+#cover {
+  background-image: url('/photos/cover-winter.jpg');
+  height: 300px;
+  background-position: fixed;
+}
+
+#myinfo-container {
   margin-top: -50px;
 }
 
