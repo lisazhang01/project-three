@@ -22,3 +22,10 @@
     });
 
   };
+
+// FUNCTIONS TO BE MOVED TO CENTRAL CONTROLLER
+
+
+  $(document).on("click", "a#my-friends", function(e) {
+    getFriends();
+  });

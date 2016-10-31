@@ -23,20 +23,32 @@
 
   var getProfile = function(identity) {
 
+    var theirTemplate = '<div data-id="!id"> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
+
     var id = identity;
 
     $.ajax({
       method: "GET",
-      url: "api/users/" + id,
-    }).done(function(elem){
-      console.log(elem);
+      url:    "api/users/" + id,
+    }).done(function(data){
+
+      $("#myinfo-container").html("");
+      var theirData = data;
+      var theirTPL = theirTemplate;
+      theirTPL = theirTPL.replace('!id', theirData.id);
+      theirTPL = theirTPL.replace('!profilepic', theirData.image);
+      theirTPL = theirTPL.replace("<!--name-->", theirData.name);
+      theirTPL = theirTPL.replace("<!--nick-->", theirData.nickname);
+      theirTPL = theirTPL.replace("<!--bio-->", theirData.bio);
+
+      $("#myinfo-container").append(theirTPL);
     });
 
   };
 
   var getProfiles = function() {
 
-    var usersTemplate = '<div class="row" data-id="!id> <div class="col-md-12"> <div class="row"> <div class="col-md-2"> <img src="" alt=""> </div> <div class="col-md-7"> <h5><!--nick--> - <!--name--></h5> <p><!--bio--></p> </div> <div class="col-md-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" class="find-me"">Visit Profile!</button> </a> </div> </div> </div> </div>';
+    var usersTemplate = '<div class="row find-id" data-id="!id"> <div id="finder"> <div class="col-md-12"> <div class="row"> <div class="col-md-2"> <img src="" alt=""> </div> <div class="col-md-7"> <h5><!--nick--> - <!--name--> Delete This</h5> <p><!--bio--> Delete This</p> </div> <div class="col-md-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" id="find-me">Visit Profile!</button> </a> </div> </div> </div> </div> </div>';
 
     $.ajax({
       method: "GET",
@@ -89,7 +101,7 @@
   }
 
   $(document).on("click", "a#searchall", function(e) {
-    getProfiles(id);
+    getProfiles();
   });
 
   $(document).on("click", "button#save-profile", function(e) {
@@ -99,8 +111,8 @@
     $('#profile-modal').modal('hide');
   });
 
-  $(document).on("click", "find-me", function(e) {
-    var a = $(this).parents(".row").find("id");
-    console.log(a);
-    console.log("hello");
+  $(document).on("click", "button#find-me", function(e) {
+    var id = $(this).parents("div#finder").parent().data("id")
+    getProfile(id);
+    $('#search-modal').modal('hide');
   });
