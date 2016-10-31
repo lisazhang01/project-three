@@ -69,7 +69,7 @@
 
   var getProfiles = function() {
 
-    var usersTemplate = '<div class="row find-id" data-id="!id"> <div id="finder"> <div class="col-md-12"> <div class="row"> <div class="col-md-2"> <img src="" alt=""> </div> <div class="col-md-7"> <h5><!--nick--> - <!--name--> Delete This</h5> <p><!--bio--> Delete This</p> </div> <div class="col-md-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" id="find-me">Visit Profile!</button> </a> </div> </div> </div> </div> </div>';
+    var usersTemplate = '<div class="row find-id" data-id="!id"> <div id="finder"> <div class="col-md-12"> <div class="row"> <div class="col-md-7"> <h5><!--nick--> - <!--name--> Delete This</h5> <p><!--bio--> Delete This</p> </div> <div class="col-md-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" id="find-me">Visit Profile!</button> </a> </div> </div> </div> </div> </div>';
 
     $.ajax({
       method: "GET",
