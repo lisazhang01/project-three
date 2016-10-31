@@ -1,3 +1,24 @@
+  var myID = undefined;
+
+  var setIdentifier = function() {
+    var executed = false;
+    if (executed == false) {
+      myID = $("#user-image").parent().attr("data-id");
+      executed == true;
+    };
+  };
+
+  var friendBtnControl = function() {
+
+    var userID = $("#user-image").parent().attr("data-id");
+    if (userID == myID) {
+      $("#friend-btn").hide();
+    } else if (userID != myID) {
+      $("#friend-btn").show();
+    };
+
+  };
+
   var getMyself = function () {
 
     var myTemplate = '<div id="user-id-data" data-id="!id"> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
@@ -95,24 +116,31 @@
 
 // IMPORT TO CENTRAL FILE
 
-  if (top.location.pathname === '/homes')
-  {
-  getMyself();
-  }
+  if (top.location.pathname === '/homes') {
+    getMyself();
+    setIdentifier();
+    friendBtnControl();
+  };
 
-  $(document).on("click", "a#searchall", function(e) {
+  $(document).on("click", "a#searchall", function() {
     getProfiles();
   });
 
-  $(document).on("click", "button#save-profile", function(e) {
+  $(document).on("click", "button#save-profile", function() {
     var id = $("#user-image").parent().attr("data-id");
     updateProfile(id);
     getMyself();
     $('#profile-modal').modal('hide');
   });
 
-  $(document).on("click", "button#find-me", function(e) {
-    var id = $(this).parents("div#finder").parent().data("id")
+  $(document).on("click", "button#find-me", function() {
+    var id = $(this).parents("div#finder").parent().data("id");
     getProfile(id);
+    friendBtnControl();
     $('#search-modal').modal('hide');
+    $('#friends-modal').modal('hide');
+  });
+
+  $(document).on("click", "a#identify-self", function() {
+    getMyself();
   });
