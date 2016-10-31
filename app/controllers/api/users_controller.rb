@@ -3,6 +3,7 @@ class API::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_users, only: [:index]
   before_action :set_user, only: [:show, :update]
+  before_action :set_my_photos, only: [:show_my_photos]
 
   def index
     render json: @users
@@ -23,7 +24,7 @@ class API::UsersController < ApplicationController
   end
 
   def show_my_photos
-    render json: current_user.photos
+    render "show_my_photos"
   end
 
   def show_me
@@ -43,6 +44,14 @@ private
     @user = User.find_by(id: params[:id])
 
     if @user.nil?
+      render json: "User not found", status: 404
+    end
+  end
+
+  def set_my_photos
+    @my_photos = current_user.photos
+
+    if @my_photos.nil?
       render json: "User not found", status: 404
     end
   end
