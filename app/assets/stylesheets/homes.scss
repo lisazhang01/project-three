@@ -11,7 +11,25 @@
 }
 
 #myinfo-container {
-  margin-top: -50px;
+  margin-top: -80px;
+}
+
+// NAV BAR
+.navbar-brand {
+  font-weight: bold;
+  font-size: 2.5ems;
+}
+
+#upload > a {
+  color: rgb(33, 205, 224);
+  font-weight: bold;
+}
+
+#upload > a:hover {
+  color: rgb(42, 154, 158);
+  -webkit-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  transition-duration: 1s;
 }
 
 // USER PAGE PROFILE INFORMATION
@@ -27,8 +45,8 @@
 }
 
 #user-image {
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   margin: 0 auto;
 }
 

@@ -8,7 +8,7 @@ $(document).ready(function() {
 
   // Initialising Masonry grid
   var isoOpt = {
-    layoutMode: 'masonry',
+    layoutMode  : 'masonry',
     itemSelector: '.grid-item',
     percentPosition: true,
   };
@@ -18,7 +18,7 @@ $(document).ready(function() {
   var displayPhotos = function () {
     $.ajax({
       method: 'GET',
-      url:    '/api/photos',
+      url   : '/api/photos',
     }).done(function(photos){
       var items    = "";
       var template = '<div class="grid-item col-xs-6 col-sm-4 col-md-4" data-id="!id"><div class="hovereffect"><img src="!image"><div class="overlay"></div></div></div>';
@@ -44,10 +44,11 @@ $(document).ready(function() {
     });
   };
 
+  //Display only photos uploaded by current user
   var filterByUser = function() {
     $.ajax({
       method: 'GET',
-      url:    '/api/myphotos',
+      url   : '/api/myphotos',
     }).done(function(photos){
       var items    = "";
       var template = '<div class="grid-item col-xs-6 col-sm-4 col-md-4" data-id="!id"><div class="hovereffect"><img src="!image"><div class="overlay"></div></div></div>';
@@ -82,47 +83,74 @@ $(document).ready(function() {
   };
 
   // Upload photo function
-  var photo_upload = {
-    bindUploadButton: function () {
-      var that = this;
-      $('#upload-btn').on('click', function (e) {
-        e.preventDefault();
+  // var photo_upload = {
+  //   bindUploadButton: function () {
+  //     var that = this;
+  //     $('#upload-btn').on('click', function (e) {
+  //       e.preventDefault();
 
-        var data = {
-          avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
-          description:  $('input[name="photo-description"]').val(),
-          user_id: $('#user-id-data').data('id'),
-        };
+  //       var data = {
+  //         avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
+  //         description:  $('input[name="photo-description"]').val(),
+  //         user_id: $('#user-id-data').data('id'),
+  //       };
 
-        var formData = new FormData();
-        for (var key in data) {
-          formData.append(key, data[key]);
+  //       var formData = new FormData();
+  //       for (var key in data) {
+  //         formData.append(key, data[key]);
+  //       }
+
+  //       $.ajax({
+  //         url: '/api/photos',
+  //         method: 'POST',
+  //         data: formData,
+  //         processData: false,
+  //         contentType: false,
+  //         success: function (resp) {
+  //           $('#upload-modal').modal('hide');
+  //           window.location.href = '/homes';
+  //           console.log(resp);
+  //         }
+  //       });
+  //     });
+  //   },
+  //   init: function () {
+  //     this.bindUploadButton();
+  //   }
+  // };
+
+  var photoUpload = function() {
+    $('#upload-btn').on('click', function (e) {
+      e.preventDefault();
+
+      var data = {
+        avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
+        description:  $('input[name="photo-description"]').val(),
+        user_id: $('#user-id-data').data('id'),
+      };
+
+      var formData = new FormData();
+      for (var key in data) {
+        formData.append(key, data[key]);
+      }
+
+      $.ajax({
+        url: '/api/photos',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (resp) {
+          $('#upload-modal').modal('hide');
+          window.location.href = '/homes';
+          console.log(resp);
         }
-
-        console.log(formData);
-
-        $.ajax({
-          url: '/api/photos',
-          method: 'POST',
-          data: formData,
-          processData: false,  // tell jQuery not to process the data
-          contentType: false,  // tell jQuery not to set contentType
-          success: function (resp) {
-            $('#upload-modal').modal('hide');
-            window.location.href = '/homes';
-            console.log(resp);
-          }
-        });
       });
-    },
-    init: function () {
-      this.bindUploadButton();
-    }
+    });
   };
 
-  //Show one photo in modal
+  //Show one photo & related description, comments in modal
   var clickOnePhoto = function(e){
-    //On click of photo
     $('.grid').on('click', '.grid-item .hovereffect', function (e) {
       e.preventDefault();
       var id = $(this).parents('.grid-item').data('id');
@@ -131,7 +159,6 @@ $(document).ready(function() {
         url: '/api/photos/' + id,
         method: 'GET'
       }).done(function(photo){
-        console.log(photo);
 
         var commentArray = photo.comments.reverse();
         console.log(commentArray);
@@ -146,7 +173,6 @@ $(document).ready(function() {
           }
             return commentTextArray;
           }
-
         };
         extractCommentText(commentTextArray);
 
@@ -184,7 +210,6 @@ $(document).ready(function() {
       e.preventDefault();
 
       var id = $(this).data('id');
-      console.log(id);
 
       $.ajax ({
         url     : '/api/photos/' + id,
@@ -203,14 +228,13 @@ $(document).ready(function() {
   var addCommentToPhoto = function () {
     $(document).on('click', "button.submit", function(e) {
       e.preventDefault();
-
+      //Jquery gets comment text and photo id
       var id = $(this).data('id');
       var text = $('#photo-comments').val();
       var commentData = {
         text: $('#photo-comments').val()
       }
-      console.log(commentData);
-
+      //Saves to database
       $.ajax ({
         url: '/api/photos/' + id + '/comments',
         method: 'POST',
@@ -220,17 +244,11 @@ $(document).ready(function() {
         console.log("msg saved");
       });
       $('#photo-comments').val('');
-
+      //Creates new comment and append to modal
       var newCommentTemplate = '<li>!text</li>';
-
       newCommentTemplate = newCommentTemplate.replace('!text', text);
-
       $('#comments ul').prepend(newCommentTemplate);
-
-
-
     });
-
   };
 
   //Append categories to drop down list
@@ -242,7 +260,6 @@ $(document).ready(function() {
         method: 'GET',
         url:    '/api/categories',
       }).done(function(categories){
-        console.log(categories);
 
         var categoriesTemplate = '<li><a href="#">!c1</a></li><li><a href="#">!c2</a></li><li><a href="#">!c3</a></li><li><a href="#">!c4</a></li><li><a href="#">!c5</a></li><li><a href="#">!c6</a></li><li><a href="#">!c7</a></li><li><a href="#">!c8</a></li><li><a href="#">!c9</a></li><li><a href="#">!c10</a></li>';
 
@@ -258,23 +275,21 @@ $(document).ready(function() {
   //Click on show all photos to display all
   var showAllPhotosButton = function() {
     $(document).on('click', 'button#see-all-photos', function(e) {
-      console.log('clicked all photos');
       displayPhotos();
     });
   };
 
   var clickMyUploads = function () {
     $(document).on('click', 'button#see-my-uploads', function(e) {
-      console.log('clicked my uploads');
       filterByUser();
     });
   };
 
   var init = function() {
-    //Photo controller functions
+    //Photo functions
     displayPhotos();
-    photo_upload.init();
     clickOnePhoto();
+    photoUpload();
     openUploadForm();
     deletePhoto();
     showAllPhotosButton();
