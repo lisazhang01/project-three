@@ -284,6 +284,7 @@ $(document).ready(function() {
     generateCategoryDropdownList();
     //user controller
     clickMyUploads();
+    setIdentifier();
   };
 
   init();

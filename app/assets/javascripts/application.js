@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-deparam/jquery-deparam
 //= require jquery-cookie/jquery.cookie
+//= require jquery-readyselector
 //= require pubsub-js/src/pubsub
 //= require j-toker/dist/jquery.j-toker
 //= require bootstrap-sass/assets/javascripts/bootstrap-sprockets
