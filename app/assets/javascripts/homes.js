@@ -6,6 +6,11 @@ $(document).ready(function() {
     }
   });
 
+  //loader
+  Pace.on("done", function(){
+    $("#myloader").fadeOut(500);
+  });
+
   // Initialising Masonry grid
   var isoOpt = {
     layoutMode  : 'masonry',
@@ -82,46 +87,11 @@ $(document).ready(function() {
     });
   };
 
-  // Upload photo function
-  // var photo_upload = {
-  //   bindUploadButton: function () {
-  //     var that = this;
-  //     $('#upload-btn').on('click', function (e) {
-  //       e.preventDefault();
-
-  //       var data = {
-  //         avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
-  //         description:  $('input[name="photo-description"]').val(),
-  //         user_id: $('#user-id-data').data('id'),
-  //       };
-
-  //       var formData = new FormData();
-  //       for (var key in data) {
-  //         formData.append(key, data[key]);
-  //       }
-
-  //       $.ajax({
-  //         url: '/api/photos',
-  //         method: 'POST',
-  //         data: formData,
-  //         processData: false,
-  //         contentType: false,
-  //         success: function (resp) {
-  //           $('#upload-modal').modal('hide');
-  //           window.location.href = '/homes';
-  //           console.log(resp);
-  //         }
-  //       });
-  //     });
-  //   },
-  //   init: function () {
-  //     this.bindUploadButton();
-  //   }
-  // };
-
+  //Upload photo on click and refreshes page
   var photoUpload = function() {
     $('#upload-btn').on('click', function (e) {
       e.preventDefault();
+      $('#upload-modal').modal('hide');
 
       var data = {
         avatar:  $('input[name="user-photo"]')[0].files[0] ? $('input[name="user-photo"]')[0].files[0] : "",
@@ -141,7 +111,6 @@ $(document).ready(function() {
         processData: false,
         contentType: false,
         success: function (resp) {
-          $('#upload-modal').modal('hide');
           window.location.href = '/homes';
           console.log(resp);
         }
@@ -229,8 +198,8 @@ $(document).ready(function() {
     $(document).on('click', "button.submit", function(e) {
       e.preventDefault();
       //Jquery gets comment text and photo id
-      var id = $(this).data('id');
-      var text = $('#photo-comments').val();
+      var id          = $(this).data('id');
+      var text        = $('#photo-comments').val();
       var commentData = {
         text: $('#photo-comments').val()
       }
