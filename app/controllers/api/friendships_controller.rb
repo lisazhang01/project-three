@@ -45,4 +45,5 @@ private
   def friend_params
     params.require(:friendship).permit(:friend_id)
   end
+
 end
