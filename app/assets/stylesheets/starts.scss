@@ -33,7 +33,10 @@
   background: url(assets/images/screen1.png);
   width: 500px;
   height: 500px;
+  background-size: auto 100%;
+  margin: 0 auto;
 }
+
 .feature-title1 p {
   text-align: center;
 }
@@ -43,6 +46,9 @@
 #feature-pic2 {
   width: 500px;
   height: 500px;
+  background: url(http://yourpositiveoasis.com/wp-content/uploads/2016/03/Happy-People.jpg) no-repeat;
+  background-size: auto 100%;
+  margin: 0 auto;
 }
 .feature-title2 p {
   text-align: center;
