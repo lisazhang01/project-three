@@ -6,10 +6,9 @@
 #start-banner {
   height: 700px;
   color: black;
-  background-image: url(https://drscdn.500px.org/photo/146969363/m%3D2048/824fea66460020390506bf4bfb713d79);
+  background: url(http://wallpapersdsc.net/wp-content/uploads/2016/09/Barcelona-for-desktop.jpg) no-repeat center;
   background-size: cover;
 }
-
 #start-words {
   height: 90%;
   width:100%;
@@ -18,7 +17,39 @@
   justify-content: center;
   color: #ffffff;
 }
-
 #start-info-header {
+  text-align: center;
+}
+.feature-container {
+  border-top: 1px solid #b9c1c7;
+}
+.feature-title1 {
+ border-right: 1px solid #b9c1c7;
+}
+.feature-title1 h2 {
+  text-align: center;
+}
+#feature-pic1 {
+  background: image-url("demo-screen-1.png") no-repeat;
+  width: 500px;
+  height: 500px;
+  background-size: auto 100%;
+  margin: 0 auto;
+}
+
+.feature-title1 p {
+  text-align: center;
+}
+.feature-title2 h2 {
+  text-align: center;
+}
+#feature-pic2 {
+  width: 500px;
+  height: 500px;
+  background: url(http://yourpositiveoasis.com/wp-content/uploads/2016/03/Happy-People.jpg) no-repeat;
+  background-size: auto 100%;
+  margin: 0 auto;
+}
+.feature-title2 p {
   text-align: center;
 }

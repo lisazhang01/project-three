@@ -4,6 +4,7 @@ class API::UsersController < ApplicationController
   before_action :set_users, only: [:index]
   before_action :set_user, only: [:show, :update]
   before_action :set_my_photos, only: [:show_my_photos]
+  before_action :search_params, only: [:find_user]
 
   def index
     render json: @users
@@ -29,6 +30,12 @@ class API::UsersController < ApplicationController
 
   def show_me
     render json: current_user
+  end
+
+  def find_user
+    search_term = search_params
+    results = User.where("name LIKE ?", "%#{search_term}%")
+    render json: results
   end
 
 private
@@ -58,5 +65,9 @@ private
 
   def user_params
     params.permit(:name, :nickname, :bio, :image)
+  end
+
+  def search_params
+    params.permit(:name)
   end
 end

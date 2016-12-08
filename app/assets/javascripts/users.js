@@ -42,6 +42,29 @@
 
   };
 
+  var getMyProfile = function () {
+
+    var myTemplate = '<div> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
+
+    $.ajax({
+      method: "GET",
+      url:    "api/myself/",
+    }).done(function(data){
+
+      $("#myprofile-container").html("");
+      var myData = data;
+      var myTPL = myTemplate;
+      myTPL = myTPL.replace('!id', myData.id);
+      myTPL = myTPL.replace('!profilepic', myData.image);
+      myTPL = myTPL.replace("<!--name-->", myData.name);
+      myTPL = myTPL.replace("<!--nick-->", myData.nickname);
+      myTPL = myTPL.replace("<!--bio-->", myData.bio);
+
+      $("#myprofile-container").append(myTPL);
+    });
+
+  };
+
   var getProfile = function(identity) {
 
     var theirTemplate = '<div data-id="!id"> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
@@ -69,7 +92,7 @@
 
   var getProfiles = function() {
 
-    var usersTemplate = '<div class="row find-id" data-id="!id"> <div id="finder"> <div class="col-md-12"> <div class="row"> <div class="col-md-7"> <h5><!--nick--> - <!--name--> Delete This</h5> <p><!--bio--> Delete This</p> </div> <div class="col-md-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" id="find-me">Visit Profile!</button> </a> </div> </div> </div> </div> </div>';
+    var usersTemplate = '<div class="row find-id" data-id="!id"> <div id="finder"> <div class="col-sm-12"> <div class="row"> <div class="col-sm-2"> <img id="friend-pic" src="<!--img-->" alt=""> </div> <div class="col-sm-5"> <h5><!--nick--> - <!--name--></h5> <p><!--bio--></p> </div> <div class="col-sm-3"> <a href="#"> <button class="btn btn-primary btn-sm" type="button" id="find-me">Visit Profile!</button> </a> </div> </div> </div> </div> </div>';
 
     $.ajax({
       method: "GET",
@@ -82,6 +105,7 @@
 
         var usersTPL = usersTemplate;
         usersTPL = usersTPL.replace('!id', elem.id);
+        usersTPL = usersTPL.replace("<!--img-->", elem.image);
         usersTPL = usersTPL.replace("<!--name-->", elem.name);
         usersTPL = usersTPL.replace("<!--nick-->", elem.nickname);
         usersTPL = usersTPL.replace("<!--bio-->", elem.bio);
@@ -143,4 +167,8 @@
 
   $(document).on("click", "a#identify-self", function() {
     getMyself();
+  });
+
+  $(document).on("click", "a#my-profile1", function() {
+    getMyProfile();
   });
