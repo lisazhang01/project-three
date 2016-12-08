@@ -44,7 +44,7 @@
 
   var getMyProfile = function () {
 
-    var myTemplate = '<div> <div id="user-image"> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
+    var myTemplate = '<div> <div> <img src="!profilepic"> </div> <div id="user-info"> <h2><!--name--></h2> <h4><!--nick--></h4> <p><!--bio--></p> </div> </div>';
 
     $.ajax({
       method: "GET",
