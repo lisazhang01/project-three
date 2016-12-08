@@ -11,7 +11,7 @@ $(document).ready(function(){
       password: $('#signup-form input[name="password"]').val(),
       password_confirmation: $('#signup-form input[name="password_confirmation"]').val()
     }).then(function(user){
-      window.location.replace("http://localhost:3000/homes");
+      window.location.href = "/homes"
     }).fail(function(resp){
       alert('Authentication failure: ' + resp.errors.join(' '));
     });
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
   $('#logout-button').on('click', function(){
       $.auth.signOut().then(function(){
-        window.location.replace("http://localhost:3000/");
+        window.location.href = "/"
       });
   });
 
@@ -29,7 +29,7 @@ $(document).ready(function(){
       email: $('#login-form input[name="email"]').val(),
       password: $('#login-form input[name="password"]').val(),
     }).then(function(user){
-      window.location.replace("http://localhost:3000/homes");
+      window.location.href = "/homes"
     }).fail(function(resp){
       alert('Authentication failure: ' + resp.errors.join(' '));
     });
