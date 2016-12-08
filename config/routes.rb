@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   namespace :api do
     #gets current_user's photo
     get '/myphotos' => "users#show_my_photos"
-
     get '/myself' => "users#show_me"
 
     resources :photos, only: [:index, :show, :create, :update, :destroy] do
@@ -19,6 +18,8 @@ Rails.application.routes.draw do
     resources :friendships, only: [:index, :create, :destroy]
     # search/show public accessable users
     resources :users, only: [:index, :show, :update]
+      # search function to find other users
+      get "/users/find_user" => "users#find_user"
     # list of all available categories
     resources :categories, only: [:index]
   end

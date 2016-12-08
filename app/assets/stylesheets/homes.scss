@@ -330,3 +330,15 @@ h1 {
     height: 0%;
   }
 }
+#friend-pic {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+}
+
+#friend-pic img {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
